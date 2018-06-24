@@ -9,6 +9,7 @@
     <modules>
         <module>message-thrift-service-api</module>
 		<module>user-thrift-service-api</module>
+		<module>user-service-api</module>
 	</modules>
     <packaging>pom</packaging>
 

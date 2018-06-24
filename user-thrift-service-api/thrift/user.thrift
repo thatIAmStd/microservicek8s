@@ -11,7 +11,7 @@ struct UserInfo{
 
 service UserService{
 
-    UserInfo getUserById(1:string id);
+    UserInfo getUserById(1:i32 id);
 
     UserInfo getUserByName(1:string username);
 
