@@ -10,7 +10,8 @@
         <module>message-thrift-service-api</module>
 		<module>user-thrift-service-api</module>
 		<module>user-service-api</module>
-	</modules>
+        <module>user-edge-service</module>
+    </modules>
     <packaging>pom</packaging>
 
 	<name>microservicek8s</name>
