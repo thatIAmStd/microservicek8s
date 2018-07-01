@@ -1,6 +1,8 @@
 package com.hydeng.user.thrift;
 
+import com.hydeng.thrift.message.MessageService;
 import com.hydeng.thrift.user.UserService;
+import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
@@ -25,8 +27,29 @@ public class ServiceProvider {
     @Value("${thrift.user.port}")
     private int thriftUserPort;
 
+    @Value("${thrift.user.ip}")
+    private String thriftMessageIp;
+
+    @Value("${thrift.user.port}")
+    private int thriftMessagePort;
+
+    enum ServiceType{
+        USER,
+        MESSAGE
+    }
+
+
     public UserService.Client getUserService(){
-        TSocket socket = new TSocket(thriftUserIp,thriftUserPort,3000);
+        return getService(thriftUserIp,thriftUserPort,ServiceType.USER);
+    }
+
+    public MessageService.Client getMessageService(){
+        return getService(thriftMessageIp,thriftMessagePort,ServiceType.MESSAGE);
+    }
+
+
+    public <T> T getService(String ip,int port,ServiceType serviceType){
+        TSocket socket = new TSocket(ip,port,3000);
         TTransport tTransport = new TFramedTransport(socket);
         try {
             tTransport.open();
@@ -36,8 +59,18 @@ public class ServiceProvider {
         }
         TProtocol protocol = new TBinaryProtocol(tTransport);
 
-        UserService.Client client = new UserService.Client(protocol);
-        return client;
+        TServiceClient result = null;
+
+        switch (serviceType){
+            case USER:
+                result = new UserService.Client(protocol);
+                break;
+            case MESSAGE:
+                result = new MessageService.Client(protocol);
+                break;
+
+        }
+        return (T)result;
     }
 
 }

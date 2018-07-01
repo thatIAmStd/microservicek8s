@@ -11,6 +11,7 @@
 		<module>user-thrift-service-api</module>
 		<module>user-service-api</module>
         <module>user-edge-service</module>
+        <module>user-edge-service-client</module>
     </modules>
     <packaging>pom</packaging>
 
