@@ -33,6 +33,10 @@ public class UserController {
     @Autowired
     private RedisClient redisClient;
 
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(){
+        return "/login";
+    }
 
     @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     @ResponseBody
