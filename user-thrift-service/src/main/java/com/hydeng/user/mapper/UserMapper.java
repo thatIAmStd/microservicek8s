@@ -24,8 +24,11 @@ public interface UserMapper {
     UserInfo getUserByName(@Param("username") String userName);
 
 
-    @Insert("insert into db_user (username,password,real_name,email,mobile) " +
-            "values (#{u.username},#{u.password}.#{u.realName},#{u.email},#{u.mobile})")
+    @Insert("insert into pe_user (username,password,real_name,email,mobile) " +
+            "values (#{u.username},#{u.password},#{u.realName},#{u.email},#{u.mobile})")
     void registerUser(@Param("u") UserInfo userInfo);
 
+    @Select("select u.id,u.username,u.password,u.real_name as realName,u.email,u.mobile,t.intro,t.description " +
+            " from pe_user u,pr_user_course t where u.id = #{id} and u.id = t.user_id")
+    UserInfo getTeacherById(@Param("id") int id);
 }

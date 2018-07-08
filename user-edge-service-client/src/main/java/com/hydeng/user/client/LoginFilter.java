@@ -25,10 +25,10 @@ import java.util.concurrent.TimeUnit;
  * @author: hydeng
  * @since: 2018-07-01
  */
-public abstract class LoginFilter  implements Filter {
+public abstract class LoginFilter implements Filter {
 
     //加入guava缓存节省开支
-    private static Cache<String,UserDTO> cache =
+    private static Cache<String, UserDTO> cache =
             CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(3, TimeUnit.MINUTES).build();
 
     @Override
@@ -41,33 +41,35 @@ public abstract class LoginFilter  implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String token = request.getHeader("token");
-        if(StringUtils.isBlank(token)){
+        if (StringUtils.isBlank(token)) {
             Cookie[] cookies = request.getCookies();
-            if(cookies != null){
-                for(Cookie cookie : cookies){
-                    if("token".equals(cookie.getName())){
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("token".equals(cookie.getName())) {
                         token = cookie.getValue();
                     }
                 }
             }
         }
         UserDTO userDTO = null;
-        if(StringUtils.isNotBlank(token)){
+        if (StringUtils.isNotBlank(token)) {
             userDTO = cache.getIfPresent(token);
-            if(userDTO == null){
+            if (userDTO == null) {
                 userDTO = requestUserInfo(token);
+                if (userDTO != null) {
+                    cache.put(token, userDTO);
+                }
             }
         }
 
-        if(userDTO == null){
+        if (userDTO == null) {
             response.sendRedirect("http://www.mooc.com/user/login");
             return;
         }
 
-        cache.put(token,userDTO);
         //扩展功能
-        login(request,response,userDTO);
-        filterChain.doFilter(request,response);
+        login(request, response, userDTO);
+        filterChain.doFilter(request, response);
     }
 
     protected abstract void login(HttpServletRequest request, HttpServletResponse response, UserDTO userDTO);
@@ -76,27 +78,27 @@ public abstract class LoginFilter  implements Filter {
         String url = "http://127.0.0.1:8082/user/authentication";
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
-        post.addHeader("token",token);
+        post.addHeader("token", token);
         InputStream inputStream = null;
         try {
             HttpResponse response = client.execute(post);
-            if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
-                throw new RuntimeException("request user info fail !status line"+response.getStatusLine());
+            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                throw new RuntimeException("request user info fail !status line" + response.getStatusLine());
             }
             inputStream = response.getEntity().getContent();
             byte[] temp = new byte[1024];
             StringBuilder sb = new StringBuilder();
             int len = 0;
-            if((len = inputStream.read(temp)) > 0){
-                sb.append(new String(temp,0,len));
+            if ((len = inputStream.read(temp)) > 0) {
+                sb.append(new String(temp, 0, len));
             }
 
-            UserDTO userDTO = new ObjectMapper().readValue(sb.toString(),UserDTO.class);
+            UserDTO userDTO = new ObjectMapper().readValue(sb.toString(), UserDTO.class);
             return userDTO;
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(inputStream != null){
+        } finally {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (Exception e) {

@@ -1,6 +1,5 @@
-package com.hydeng.user.thrift;
+package com.hydeng.course.service;
 
-import com.hydeng.thrift.message.MessageService;
 import com.hydeng.thrift.user.UserService;
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -27,12 +26,6 @@ public class ServiceProvider {
     @Value("${thrift.user.port}")
     private int thriftUserPort;
 
-    @Value("${thrift.message.ip}")
-    private String thriftMessageIp;
-
-    @Value("${thrift.message.port}")
-    private int thriftMessagePort;
-
     enum ServiceType{
         USER,
         MESSAGE
@@ -40,12 +33,9 @@ public class ServiceProvider {
 
 
     public UserService.Client getUserService(){
-        return getService(thriftUserIp,thriftUserPort,ServiceType.USER);
+        return getService(thriftUserIp,thriftUserPort, ServiceType.USER);
     }
 
-    public MessageService.Client getMessageService(){
-        return getService(thriftMessageIp,thriftMessagePort,ServiceType.MESSAGE);
-    }
 
 
     public <T> T getService(String ip,int port,ServiceType serviceType){
@@ -65,10 +55,6 @@ public class ServiceProvider {
             case USER:
                 result = new UserService.Client(protocol);
                 break;
-            case MESSAGE:
-                result = new MessageService.Client(protocol);
-                break;
-
         }
         return (T)result;
     }

@@ -73,7 +73,7 @@ public class UserController {
                              @RequestParam(value = "mobile", required = false) String mobile,
                              @RequestParam("verifyCode") String verifyCode) {
 
-        if (StringUtils.isBlank(email) || StringUtils.isBlank(mobile)) {
+        if (StringUtils.isBlank(email) && StringUtils.isBlank(mobile)) {
             return Response.MOBILE_OR_EMAIL_REQUIRED;
         }
 
