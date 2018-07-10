@@ -62,4 +62,16 @@ public class UserDTO {
     public void setRealName(String realName) {
         this.realName = realName;
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", realName='" + realName + '\'' +
+                '}';
+    }
 }
