@@ -15,7 +15,8 @@
         <module>course-dubbo-service-api</module>
         <module>course-dubbo-service</module>
 		<module>course-edge-service</module>
-	</modules>
+        <module>api-getaway-zuul</module>
+    </modules>
     <packaging>pom</packaging>
 
 	<name>microservicek8s</name>
