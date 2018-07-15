@@ -41,5 +41,8 @@ Thumbs.db
 index.jsp
 
 
+#python
+*.pyc
+
 
 
