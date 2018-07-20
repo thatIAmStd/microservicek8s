@@ -40,7 +40,7 @@ public abstract class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String token = request.getHeader("token");
+        String token = request.getParameter("token");
         if (StringUtils.isBlank(token)) {
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -63,7 +63,7 @@ public abstract class LoginFilter implements Filter {
         }
 
         if (userDTO == null) {
-            response.sendRedirect("http://www.mooc.com/user/login");
+            response.sendRedirect("http://127.0.0.1/user/login");
             return;
         }
 

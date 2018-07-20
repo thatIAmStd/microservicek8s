@@ -28,6 +28,7 @@ public class CourseController {
     @RequestMapping(value = "/courseList",method = RequestMethod.POST)
     List<CourseDTO> courseList(HttpServletRequest request){
         UserDTO userDTO = (UserDTO) request.getAttribute("user");
+        System.out.println(userDTO);
         return iCourseService.courseList();
     }
 }

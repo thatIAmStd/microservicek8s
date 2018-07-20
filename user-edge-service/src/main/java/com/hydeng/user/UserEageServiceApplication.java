@@ -1,4 +1,4 @@
-package com.hydeng.course;
+package com.hydeng.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since: 2018-06-24
  */
 @SpringBootApplication
-public class ServiceApplication {
+public class UserEageServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceApplication.class,args);
+        SpringApplication.run(UserEageServiceApplication.class,args);
     }
 }

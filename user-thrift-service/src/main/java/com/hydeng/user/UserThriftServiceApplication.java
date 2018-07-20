@@ -1,8 +1,7 @@
-package com.hydeng.zuul;
+package com.hydeng.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
  * Description:
@@ -11,10 +10,9 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @since: 2018-06-24
  */
 @SpringBootApplication
-@EnableZuulProxy
-public class ServiceApplication {
+public class UserThriftServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceApplication.class,args);
+        SpringApplication.run(UserThriftServiceApplication.class,args);
     }
 }

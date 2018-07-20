@@ -30,6 +30,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     private String host;
     @Value("${spring.redis.port}")
     private int port;
+    @Value("${spring.redis.password}")
+    private String password;
     @Value("${spring.redis.timeout}")
     private int timeout;
 
@@ -48,6 +50,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         factory.setHostName(host);
         factory.setPort(port);
         factory.setTimeout(timeout);
+        factory.setPassword(password);
         return factory;
     }
 

@@ -130,6 +130,16 @@ public class UserController {
         return LoginResponse.success(token);
     }
 
+    /**
+     * 授权验证
+     */
+    @RequestMapping(value="/authentication", method = RequestMethod.POST)
+    @ResponseBody
+    public UserDTO authentication(@RequestHeader("token") String token) {
+
+        return redisClient.get(token);
+    }
+
     private UserDTO toDto(UserInfo userInfo) {
         UserDTO userDto = new UserDTO();
         BeanUtils.copyProperties(userInfo, userDto);
