@@ -39,7 +39,7 @@ public class ServiceProvider {
 
 
     public <T> T getService(String ip,int port,ServiceType serviceType){
-        TSocket socket = new TSocket(ip,port,6000);
+        TSocket socket = new TSocket(ip,port,10000);
         TTransport tTransport = new TFramedTransport(socket);
         try {
             tTransport.open();

@@ -1,5 +1,6 @@
 package com.hydeng.course.service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.hydeng.course.mapper.CourseMapper;
 import com.hydeng.course.dto.CourseDTO;
 import com.hydeng.thrift.user.UserInfo;
@@ -7,7 +8,6 @@ import com.hydeng.thrift.user.dto.TeacherDTO;
 import org.apache.thrift.TException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -44,6 +44,7 @@ public class CourseServiceImpl implements ICourseService{
 
             }
         }
+        System.out.println(courseDTOS);
         return courseDTOS;
     }
 
