@@ -1,0 +1,5 @@
+FROM python:2.7-slim
+MAINTAINER thatiam92@163.com
+
+#执行这条命令
+RUN pip install thrift
