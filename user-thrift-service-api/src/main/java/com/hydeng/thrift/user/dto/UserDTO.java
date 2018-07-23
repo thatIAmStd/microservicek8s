@@ -1,12 +1,14 @@
 package com.hydeng.thrift.user.dto;
 
+import java.io.Serializable;
+
 /**
  * Description:
  *
  * @author: hydeng
  * @since: 2018-06-30
  */
-public class UserDTO {
+public class UserDTO implements Serializable{
 
     private int id;
     private String username;

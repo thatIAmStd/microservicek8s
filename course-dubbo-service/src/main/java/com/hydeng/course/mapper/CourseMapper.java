@@ -19,6 +19,6 @@ public interface CourseMapper {
     @Select("select id,title,description from pe_course")
     List<CourseDTO> listCourse();
 
-    @Select("select id from pr_user_course where course_id = #{courseId}")
+    @Select("select user_id from pr_user_course where course_id = #{courseId}")
     Integer  getCourseTeacher(@Param("courseId") Integer courseId );
 }

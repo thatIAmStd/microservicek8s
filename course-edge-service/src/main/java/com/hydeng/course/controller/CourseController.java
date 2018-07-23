@@ -30,6 +30,8 @@ public class CourseController {
     List<CourseDTO> courseList(HttpServletRequest request){
         UserDTO userDTO = (UserDTO) request.getAttribute("user");
         System.out.println(userDTO);
-        return iCourseService.courseList();
+        List<CourseDTO> courseList= iCourseService.courseList();
+        System.out.println(courseList);
+        return courseList;
     }
 }
