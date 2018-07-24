@@ -31,12 +31,10 @@ public abstract class LoginFilter implements Filter {
     private static Cache<String, UserDTO> cache =
             CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(3, TimeUnit.MINUTES).build();
 
-    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -63,7 +61,7 @@ public abstract class LoginFilter implements Filter {
         }
 
         if (userDTO == null) {
-            response.sendRedirect("http://127.0.0.1:8082/user/login");
+            response.sendRedirect("http://user-egde-service:8082/user/login");
             return;
         }
 
@@ -109,7 +107,6 @@ public abstract class LoginFilter implements Filter {
         return null;
     }
 
-    @Override
     public void destroy() {
 
     }
